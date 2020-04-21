@@ -1,0 +1,259 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass[serif]{beamer}
+
+\input{macros}
+
+\def\sigmacr{\sigma_{\mathrm{crit}}}
+\def\E{\mathbb{E}}
+\def\V{\mathbb{V}}
+
+%	TITLE PAGE
+
+\title[Horrible Problems]{How to Solve Your Horrible Equation using FEniCS} 
+
+\author{Jerome Troy}
+
+\institute[UD]{University of Delaware}
+
+\date{April 29, 2020} % Date, can be changed to a custom date
+
+
+% ----------------------------------------------------------------------------------------
+% begin the actual presentation
+\begin{document}
+
+% title slide
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}{What is FEniCS?}
+    \begin{itemize}
+        \item Finite Element Computational Software
+        \item Gives intuitive implementations for the finite element method to solve PDEs
+        \item Written in Python - easy to understand 
+        \item Mirrors mathematical notation
+        \item Github for codes used: \url{https://github.com/JeromeTroy/fenics-hgss.git}
+    \end{itemize}
+    
+    \centering
+    \includegraphics[scale=0.25]{figures/fenics-logo.png}
+\end{frame}
+
+
+\begin{frame}{A Brief Introduction to Finite Elements}
+    \begin{itemize}
+        \item How it works:
+        
+        \[
+            Lu = f, \quad \text{some boundary conditions}
+        \]
+        
+        \item Discretize domain, $\Omega$, into some mesh
+        
+        \item Choose a \textit{Test function} $v$ such that $v = 0$ on the (Diriclet part of) boundary
+        
+        \[
+            \int_\Omega v Lu \, dx = \int_\Omega v f \, dx
+        \]
+        
+        \item Integrate by parts, boundary condition on $v$ makes 
+        boundary terms vanish
+        \item Reduces order of derivatives in equation through integration
+        
+        \item FEniCS wraps functional analysis parts of finite elements nicely so they are all taken care of
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{An Example}
+    \begin{itemize}
+    \item Consider Laplace's Equation in a Circle of radius 1, with Dirichlet 
+    Boundary Condition:
+    
+    \begin{equation}
+        \label{eq:laplace-dirichlet-circle}
+        \begin{split}
+            \nabla^2 u = \partial_x^2 u + \partial_y^2 u = f(\vec x), \quad &  
+            \vec x \in \Omega := \left\{\vec x \in \R^2 : 0 \leq \norm{\vec x} 
+            < 1\right\} \\
+            & u(\vec x \in \partial \Omega) = 1
+        \end{split}
+    \end{equation}
+
+    \item Let $v$ be a piecewise $C^1(\Omega)$ test function such that 
+    $v(\vec x) = 0 \quad \forall \vec x \in \partial \Omega$
+    
+    \item Variational form
+    
+    \[\begin{split}
+        \int_\Omega v \nabla^2 u \, d\vec x = 
+        \int_{\partial \Omega} v \pder{u}{n} \, d\sigma - 
+        \int_\Omega \nabla v \cdot \nabla u \, d\vec x = 
+        \int_\Omega v f(\vec x) \, d\vec x
+    \end{split}\]
+    
+    \[
+        \text{BC on} \, v \implies A(u, v) := -\int_\Omega \nabla v \cdot \nabla u \, d \vec x = 
+        \int_\Omega v f(\vec x) \, d\vec x =: F(v; f)
+    \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{The Code}
+    \centering
+    \includegraphics[width=0.9\textwidth,height=0.9\textheight,keepaspectratio]
+    {code-snippets/jupyter-fencis-laplace-circle.png}
+\end{frame}
+
+\begin{frame}{Solution using FEniCS}
+
+    Example: $f(\vec x) = 1 - \norm{\vec x}^2_2$
+    \centering
+    \includegraphics[height=0.75\textheight]{figures/fenics-laplace-circle.pdf}
+    
+    Norm-2 Error: 0.002392
+    
+\end{frame}
+
+
+\begin{frame}{A Time Dependent Example}
+    \begin{itemize}
+        \item Consider the heat equation:
+        
+        \begin{equation}
+            \label{eq:heat-dirichlet-circle}
+            \begin{split}
+            \pder{u}{t} = \nabla \cdot (\kappa \nabla u), \quad & \vec x \in \Omega \\
+            & u(\vec x, t=0) = u_0(\vec x)
+            \end{split}
+        \end{equation}
+			\item Cylindrical Domain:
+				\[
+					\Omega = \left\{x = (r \cos\theta, r \sin \theta, z) : 0 \leq \theta \leq 2\pi, \, 0 \leq r < 1, \, 0 < z < h\right\}
+				\] 
+			\item Mixed boundary conditions:
+        \[
+					u(r=1, \theta, z, t) = u(r, \theta, z=0, t) = 0, \quad 
+					\pder{u}{z}(r, \theta, z=h, t) = 0
+        \] 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Variational Form and Solution}
+    \begin{itemize}
+				\item Split into many stationary problems: discretize time (Crank Nicolson time discretization)
+        \[\begin{split}
+            t_n = n\Delta t, \quad & u_n(\vec x) = u(\vec x, t_n) \\
+            \left.\pder{u}{t}\right|_{t_n} \approx \frac{u_{n+1} - u_n}{\Delta t} & = 
+            \frac{1}{2} \left(\nabla \cdot (\kappa \nabla u_n) + \nabla \cdot (\kappa \nabla u_{n+1})\right)\\
+            \implies u_{n+1} - \frac{\Delta t}{2} \nabla \cdot (\kappa \nabla u_{n+1}) & = 
+            u_n + \frac{\Delta t}{2} \nabla \cdot (\kappa \nabla u_n)
+        \end{split}\]
+
+        \item Variational Form
+        \[\begin{split}
+					\int_\Omega \left(v u_{n+1} + \frac{\Delta t}{2} \kappa \nabla v \cdot \nabla u_{n+1}\right) \, dx & = 
+					\int_\Omega \left(vu_n - \frac{\Delta t}{2} \kappa \nabla v \cdot \nabla u_n \right) \, dx \\
+					A(v, u_{n+1}) & = F(v, u_n)
+				\end{split}\]
+        
+        \item Solve $A(v, u_{n+1}) = F(v, u_n)$ subject to the boundary conditions
+					for $n = 1, ..., N$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Heat Equation Solution}
+		\centering
+    \movie[width=9cm,height=7cm, poster]{Linear Heat Equation Solution}
+		{animations/lin-heat-slice.avi}
+\end{frame}
+
+\begin{frame}{Nonlinear Heat Equation}
+    \begin{itemize}
+        \item $\kappa \to \kappa(u) = 1 - \frac{1 - k}{2} \left[
+        1 - \mathrm{tanh}\left(\frac{u - \tau}{\eta}\right)\right]$
+        \item $0 \leq k \leq 1, \quad 0 \leq \tau \leq 1, \quad \eta > 0$
+        \item Mimics a phase change where $\kappa = 1$ for high $u$, then
+        $\kappa = \frac{1 + k}{2} \leq 1$ for low $u$
+        \item $\eta$ controls rate of switching from high to low $\kappa$, $\tau$ is phase change temperature
+				\item Variational Form:
+					\[
+						F(v, u_n; \Delta t) = \int_\Omega \left(v u_n - \frac{\Delta t}{2} \kappa(u_n) \nabla v \cdot \nabla u\right) \, dx
+					\] 
+					\[
+						A(v, u_{n+1}; \Delta t) = \int_\Omega \left(v u_{n+1} + \frac{\Delta t}{2} \kappa(u_{n+1}) \nabla v \cdot \nabla u_{n+1}\right) \, dx
+					\] 
+				\item Solve $A(v, u_{n+1}) = F(v, u_n)$ subject to same boundary conditions
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Comparison of Linear and Nonlinear Heat Equations}
+	\centering
+	\movie[width=10cm,height=6cm, poster]{Comparison Solutions}
+	{animations/comparison-heat.avi}
+\end{frame}
+
+\begin{frame}{A Nonlinear (Horrible) Example}
+    \begin{itemize}
+        \item The catenary problem
+        
+        \begin{equation}
+            \min_u \int_{-1}^1 u \sqrt{1 + \left(\epsilon u'\right)^2} \, dx, \quad 
+            \text{subject to} \quad 
+            \int_{-1}^1 \sqrt{1 + \left(\epsilon u'\right)^2} \, dx = \ell
+        \end{equation}
+        With $u(\pm 1) = 0$.
+        
+        \item FEniCS applied to Lagrange Multiplier Problem
+        \begin{equation}
+            \min_{u, \lambda} \mathcal{F}(u; \lambda) = 
+            \int_{-1}^1 u \sqrt{1 + \left(\epsilon u'\right)^2} \, dx - 
+            \lambda \int_{-1}^1 \left[\frac{\ell}{2} - \sqrt{1 + \left(\epsilon u'\right)^2}\right] \, dx
+        \end{equation}
+        
+        \item Note $\mathcal F : C^1\left[-1, 1\right] \times \R \to \R$
+        
+        \item Let $X := C^1\left[-1, 1\right] \times \R$
+        
+        \item For simplicity, let 
+        
+        \[
+            \der{s}{x} = \sqrt{1 + (\epsilon u')^2}
+        \]
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Horrible Problem Made Easy}
+    \begin{itemize}
+        \item Some notation to simplify
+        \begin{itemize}
+            \item $X:= C^1\left[-1, 1\right] \times \R$ mixed space
+            \item $y \in X$, $y = (u, \lambda)$
+        \end{itemize}
+        \item Minimize $\mathcal F(y) = \mathcal F((u, \lambda)) = \int_{-1}^1 u \der{s}{x} - \lambda \left[\frac{\ell}{2} - 
+            \der{s}{x}\right] \, dx$
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.65\textwidth,height=0.65\textheight,keepaspectratio]
+            {figures/fenics-catenary.pdf}
+            \caption{Solution to the Catenary Problem using FEniCS}
+            \label{fig:fenics-catenary}
+        \end{figure}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{References}
+    \nocite{*}
+    \bibliographystyle{plain}
+    \bibliography{biblio.bib}
+    
+    \url{https://github.com/JeromeTroy/fenics-hgss.git}
+\end{frame}
+
+\end{document}

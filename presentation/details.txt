@@ -1,0 +1,9 @@
+Summary of some trials and their fragmentations
+
+corr10 trial400 1 fragment
+corr10 trial1600 2 fragments
+corr10 trial2000 1 fragment
+corr10 trial1800 3 fragments
+corr100 trial1000 7 fragments
+corr100 trial1400 8 fragments
+corr100 trial2000 11 fragments

@@ -1,0 +1,108 @@
+% allows the pdf to open in presentation mode immediately on open
+\hypersetup{pdfpagemode=FullScreen}
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}      % plain
+%\usetheme{AnnArbor}    % pretty good (yellow with blue accents)
+%\usetheme{Antibes}      % deep blue, brief info at top
+%\usetheme{Bergen}       % cornell note style, blue side bar takes up too much room
+%\usetheme{Berkeley}     % brief info in blue side bar, shrinks available slide space
+%\usetheme{Berlin}       % deep blue, brief now at bottom, shrinks slide space
+\usetheme{Boadilla}     % very light blue colors, popped text blocks, close to plain
+%\usetheme{CambridgeUS}      % dark reds and light grays
+%\usetheme{Copenhagen}       % dark blue, names highlighted @ bottom in black
+%\usetheme{Darmstadt}        % Copenhagen theme, minus bottom brief, black accent bar @ top
+%\usetheme{Dresden}          % names blue, above short title purple, purple accents
+%\usetheme{Frankfurt}        % Copenhagen with popped blocks
+%\usetheme{Goettingen}       % brief info in gray side bar on right, plain otherwise
+%\usetheme{Hannover}         % Geottingen but bar is on left and skinnier
+%\usetheme{Ilmenau}          % Dreden, makes slide space smaller
+%\usetheme{JuanLesPins}      % Copenhagen, but no names, short title in black bar at top, shrinks slides 
+%\usetheme{Luebeck}          % sharp angles, blue short title, black names
+%\usetheme{Madrid}           % blue, purple names, blue short title, light blue date, all at bottom 
+%\usetheme{Malmoe}           % no title banners, names black, short title blue @ bottom
+%\usetheme{Marburg}          % brief info in black -> blue gradient sidebar on right, shrinks slide
+%\usetheme{Montpellier}      % short title in white banner at top, too plain
+%\usetheme{PaloAlto}         % Large blue title banner + left side blue banner for brief info
+%\usetheme{Pittsburgh}       % titles aligned right, no banners top or bottom
+%\usetheme{Rochester}        % Large blue title banners on all 
+%\usetheme{Singapore}        % Gradient blue title banner, otherwise plain
+%\usetheme{Szeged}           % Striped title banner, stripe separating brief info @ bottom
+%\usetheme{Warsaw}           % blue -> black (left -> right) title banner, names black, shorttile blue 
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}       % blue backgrounds
+%\usecolortheme{beaver}          % hightlights titles in grey blocks, red accents
+%\usecolortheme{beetle}          % grey backgrounds
+%\usecolortheme{crane}           % highlights titles in yellow blocks
+%\usecolortheme{dolphin}         % blue accents, relatively plain
+%\usecolortheme{dove}            % only black text
+%\usecolortheme{fly}             % all grey slides
+%\usecolortheme{lily}            % blocks of text not colored
+\usecolortheme{orchid}          % blocks of texted colors darker
+%\usecolortheme{rose}            % very light colors on text blocks
+%\usecolortheme{seagull}         % grey blocks of text
+%\usecolortheme{seahorse}        % steel colored text blocks
+%\usecolortheme{whale}           % blues become darker, blue title banners
+%\usecolortheme{wolverine}       % yellow title bars with blue accents
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[fg, page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+%\setbeamertemplate{footline}[page number, \insertshorttitle{}]
+\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}   % end \mode<presentation>
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{animate}
+\usepackage{subcaption}
+\usepackage{tikz, pgfplots}
+    \pgfplotsset{compat=1.15}
+\usepackage{amsmath}
+\usepackage{multicol}
+% videos
+\usepackage{multimedia}
+
+% commands
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\tr}[1]{\mathrm{tr}\left(#1\right)}
+\newcommand{\norm}[1]{\left|\left| #1 \right|\right|}
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+\newcommand{\R}{\mathbb{R}}
+\renewcommand{\exp}[1]{\mathrm{exp}\left( #1 \right)}
+
+% page setup
+%\everymath{\displaystyle}
+
+
+% derivatives
+\newcommand{\der}[3][1]{
+	\frac{{\text{d}^{
+		\ifthenelse{\equal{#1}{1}}{}{\,#1}
+	}
+	{#2} }}
+	{\text{d} {#3}^{
+		\ifthenelse{\equal{#1}{1}}{}{#1}
+	}
+	}
+}
+
+\newcommand{\pder}[3][1]{
+	\frac{\partial^{
+		\ifthenelse{\equal{#1}{1}}{}{\,#1}
+	}
+	{#2}}
+	{\partial {#3}^{
+		\ifthenelse{\equal{#1}{1}}{}{#1}
+	}
+	}
+}
+
+\everymath{\displaystyle}

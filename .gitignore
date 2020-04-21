@@ -3,3 +3,4 @@
 *.xdmf
 ode.py
 linalg.py
+*.avi

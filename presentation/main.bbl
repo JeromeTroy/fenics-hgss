@@ -1,0 +1,16 @@
+\begin{thebibliography}{1}
+
+\bibitem{fenics-project}
+Martin~S. Aln{\ae}s, Jan Blechta, Johan Hake, August Johansson, Benjamin
+  Kehlet, Anders Logg, Chris Richardson, Johannes Ring, Marie~E. Rognes, and
+  Garth~N. Wells.
+\newblock The fenics project version 1.5.
+\newblock {\em Archive of Numerical Software}, 3(100), 2015.
+
+\bibitem{fenics-book}
+Anders Logg, Kent-Andre Mardal, Garth~N. Wells, et~al.
+\newblock {\em Automated Solution of Differential Equations by the Finite
+  Element Method}.
+\newblock Springer, 2012.
+
+\end{thebibliography}
