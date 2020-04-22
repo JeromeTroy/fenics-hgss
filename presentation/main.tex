@@ -115,7 +115,7 @@
     \centering
     \includegraphics[height=0.75\textheight]{figures/fenics-laplace-circle.pdf}
     
-    Norm-2 Error: 0.002392
+    Norm-2 Error: 0.002392, plot made via Matplotlib
     
 \end{frame}
 
@@ -170,6 +170,8 @@
 		\centering
     \movie[width=9cm,height=7cm, poster]{Linear Heat Equation Solution}
 		{animations/lin-heat-slice.avi}
+
+		Video made using paraview
 \end{frame}
 
 \begin{frame}{Nonlinear Heat Equation}
@@ -199,6 +201,8 @@
 	\centering
 	\movie[width=10cm,height=6cm, poster]{Comparison Solutions}
 	{animations/comparison-heat.avi}
+
+	Video made using paraview
 \end{frame}
 
 \begin{frame}{A Nonlinear (Horrible) Example}
@@ -256,7 +260,11 @@
 		\item FEniCS provides an intuitive implementation for finite elements
 		\item FEniCS can be overkill for simple problems - it has a lot of overhead
 		\item Can solve complicated problems with relative ease
-		\item Many more examples on the FEniCS website and book (free)
+		\item Many more examples on the FEniCS website and book (free via LaunchPad,
+
+			http://launchpad.net/fenics-book/trunk/final/+download/fenics-book-2011-10-27-final.pdf)
+		\item Solutions in FEniCS can be saved in XDMF format and viewed using 
+			Paraview
 	\end{itemize}
 \end{frame}
 
