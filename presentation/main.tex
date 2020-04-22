@@ -174,21 +174,25 @@
 
 \begin{frame}{Nonlinear Heat Equation}
     \begin{itemize}
+				\begin{multicols}{2}
         \item $\kappa \to \kappa(u) = 1 - \frac{1 - k}{2} \left[
         1 - \mathrm{tanh}\left(\frac{u - \tau}{\eta}\right)\right]$
-        \item $0 \leq k \leq 1, \quad 0 \leq \tau \leq 1, \quad \eta > 0$
-        \item Mimics a phase change where $\kappa = 1$ for high $u$, then
-        $\kappa = \frac{1 + k}{2} \leq 1$ for low $u$
-        \item $\eta$ controls rate of switching from high to low $\kappa$, $\tau$ is phase change temperature
-				\item Variational Form:
+        \item Mimics a phase change where $\kappa = 1$ for high $u$, then low for low $u$
+					\begin{figure}
+						\centering
+						\includegraphics[width=0.5\textwidth]{figures/kappa-u}
+					\end{figure}
+				\end{multicols}
+				
+				\vspace{-3em}
+        \item Variational Form:
 					\[
 						F(v, u_n; \Delta t) = \int_\Omega \left(v u_n - \frac{\Delta t}{2} \kappa(u_n) \nabla v \cdot \nabla u\right) \, dx
 					\] 
 					\[
 						A(v, u_{n+1}; \Delta t) = \int_\Omega \left(v u_{n+1} + \frac{\Delta t}{2} \kappa(u_{n+1}) \nabla v \cdot \nabla u_{n+1}\right) \, dx
 					\] 
-				\item Solve $A(v, u_{n+1}) = F(v, u_n)$ subject to same boundary conditions
-    \end{itemize}
+				\end{itemize}
 \end{frame}
 
 \begin{frame}{Comparison of Linear and Nonlinear Heat Equations}
@@ -247,6 +251,14 @@
     \end{itemize}
 \end{frame}
 
+\begin{frame}{Conclusions}
+	\begin{itemize}
+		\item FEniCS provides an intuitive implementation for finite elements
+		\item FEniCS can be overkill for simple problems - it has a lot of overhead
+		\item Can solve complicated problems with relative ease
+		\item Many more examples on the FEniCS website and book (free)
+	\end{itemize}
+\end{frame}
 
 \begin{frame}{References}
     \nocite{*}
