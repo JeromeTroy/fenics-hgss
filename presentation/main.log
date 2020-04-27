@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.2.3)  22 APR 2020 11:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.2.3)  27 APR 2020 15:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1343,11 +1343,11 @@ Overfull \hbox (21.90005pt too wide) detected at line 167
 
 ]
 Package epstopdf Info: Source file: <figures/kappa-u.eps>
-(epstopdf)                    date: 2020-04-22 10:25:56
-(epstopdf)                    size: 17400 bytes
+(epstopdf)                    date: 2020-04-27 13:11:32
+(epstopdf)                    size: 15252 bytes
 (epstopdf)             Output file: <figures/kappa-u-eps-converted-to.pdf>
-(epstopdf)                    date: 2020-04-22 10:31:19
-(epstopdf)                    size: 9839 bytes
+(epstopdf)                    date: 2020-04-27 15:20:34
+(epstopdf)                    size: 8650 bytes
 (epstopdf)             Command: <repstopdf --outfile=figures/kappa-u-eps-conver
 ted-to.pdf figures/kappa-u.eps>
 (epstopdf)             \includegraphics on input line 198.
@@ -1374,7 +1374,7 @@ Overfull \hbox (15.95003pt too wide) in paragraph at lines 198--198
 ] [12
 
 ]
-<figures/fenics-catenary.pdf, id=146, 433.62pt x 289.08pt>
+<figures/fenics-catenary.pdf, id=143, 433.62pt x 289.08pt>
 File: figures/fenics-catenary.pdf Graphic file (type pdf)
 <use figures/fenics-catenary.pdf>
 Package pdftex.def Info: figures/fenics-catenary.pdf  used on input line 256.
@@ -1430,9 +1430,9 @@ usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (15 pages, 415649 bytes).
+Output written on main.pdf (15 pages, 414547 bytes).
 PDF statistics:
- 258 PDF objects out of 1000 (max. 8388607)
+ 255 PDF objects out of 1000 (max. 8388607)
  173 compressed objects within 2 object streams
  36 named destinations out of 1000 (max. 500000)
  78 words of extra memory for PDF output out of 10000 (max. 10000000)
